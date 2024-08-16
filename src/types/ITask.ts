@@ -1,0 +1,11 @@
+import { TaskStatus } from "./TaskStatus";
+
+export interface ITask {
+  name: string;
+  dateAdded: string;
+  dateModified: string;
+  status: TaskStatus;
+  dateCompleted: string;
+  dueDate: string;
+  notes: string;
+}
