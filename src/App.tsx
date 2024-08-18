@@ -1,12 +1,8 @@
-import './App.css'
-import { TodoList } from './components/todolist'
+import "./App.css";
+import { Home } from "./pages/Home";
 
 function App() {
-  return (
-    <>
-      <TodoList />
-    </>
-  )
+  return <Home />;
 }
 
-export default App
+export default App;
