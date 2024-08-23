@@ -1,13 +1,9 @@
-import { ButtonProps } from "./types";
+import { ButtonProps, ButtonVariant } from "./types";
 
-const ButtonStyles = {
-  default: "",
-};
-
-export const Button = ({ label, ...rest }: ButtonProps) => {
+export const Button = ({ label, variant, ...rest }: ButtonProps) => {
   return (
     <button
-      className="px-3 py-2 bg-sky-700 border rounded border-sky-600 font-medium w-fit"
+      className={ButtonVariant[variant] || ButtonVariant.default}
       {...rest}
     >
       {label}
