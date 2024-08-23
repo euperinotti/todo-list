@@ -1,9 +1,11 @@
 import { CheckTaskProps } from "./types";
 
-export const CheckTask = ({}: CheckTaskProps) => {
+export const CheckTask = ({ className }: CheckTaskProps) => {
   return (
     <label
-      className="relative flex items-center rounded-full cursor-pointer"
+      className={
+        "relative flex items-center rounded-full cursor-pointer " + className
+      }
       htmlFor="customStyle"
     >
       <input

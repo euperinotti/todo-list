@@ -31,7 +31,7 @@ export const Task = ({ data, ...rest }: TaskProps) => {
           )}
         </div>
       </div>
-      <CheckTask />
+      <CheckTask className="z-40" />
     </div>
   );
 };
