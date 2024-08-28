@@ -7,6 +7,6 @@ export interface ITask {
   dateModified: string;
   status: TaskStatus;
   dateCompleted: string;
-  dueDate: string;
+  dueDate: Date;
   notes: string;
 }
