@@ -28,16 +28,19 @@ export const TodoPage = () => {
 
   const handleOpenTaskInfo = (e: MouseEvent<HTMLDivElement>, task: ITask) => {
     const checkTaskId = e.target.getAttribute("id");
-    setSelectedTask(task);
 
     if (checkTaskId == "customStyle") {
-      taskList.finishTask(task.id);
+      setTimeout(() => {
+        taskList.finishTask(task.id);
+      }, 250);
       if (isModalOpen) {
         setModalOpen(false);
         setSelectedTask(null);
       }
       return;
     }
+
+    setSelectedTask(task);
     setModalOpen(true);
   };
 
