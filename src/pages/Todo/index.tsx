@@ -1,10 +1,11 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { Button } from "../../components/Button";
-import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
-import { Navbar } from "../../components/Navbar";
+import { PageTitle } from "../../components/PageTitle";
 import { Task } from "../../components/Task";
+import { useTask } from "../../hooks/useTask";
 import { TaskInfo } from "../../patterns/TaskInfo";
+import { BaseTemplate } from "../../template/Base";
 import { ITask } from "../../types/ITask";
 import { TaskStatus } from "../../types/TaskStatus";
 
@@ -20,8 +21,8 @@ const exampleTask: ITask = {
 };
 
 export const TodoPage = () => {
+  const taskList = useTask();
   const [selectedTask, setSelectedTask] = useState<ITask | null>();
-  const [taskList, setTaskList] = useState<ITask[]>([]);
   const [taskName, setTaskName] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -30,17 +31,17 @@ export const TodoPage = () => {
     setSelectedTask(task);
 
     if (checkTaskId == "customStyle") {
-      setSelectedTask({
-        ...selectedTask,
-        status: TaskStatus.COMPLETED,
-      } as ITask);
+      taskList.finishTask(task.id);
+      if (isModalOpen) {
+        setModalOpen(false);
+        setSelectedTask(null);
+      }
       return;
     }
     setModalOpen(true);
   };
 
   const addTaskToList = (name: string) => {
-
     if (!name) {
       return;
     }
@@ -55,18 +56,20 @@ export const TodoPage = () => {
       dueDate: "",
       notes: "",
     };
-    taskList.push(newTasks);
-    setTaskList(taskList);
+    taskList.addTask(newTasks);
     setTaskName("");
     setSelectedTask(null);
   };
 
+  useEffect(() => {
+    console.log(selectedTask);
+  }, [selectedTask]);
+
   return (
-    <div className="bg-slate-900 min-h-screen h-full text-slate-50 py-12 px-60 flex flex-col items-start gap-12">
-      <Navbar />
+    <BaseTemplate>
       <div className="flex justify-start items-start h-full w-full gap-12">
         <div className="flex flex-col justify-start items-start h-auto w-full gap-6 max-w-lg">
-          <Header />
+          <PageTitle title="ToDo App" />
           <div className="flex w-full gap-3">
             <Input
               className="flex-1"
@@ -81,9 +84,9 @@ export const TodoPage = () => {
           </div>
 
           <section className="max-h-96 h-full w-full flex flex-col gap-2 overflow-scroll">
-            {taskList &&
-              taskList.length > 0 &&
-              taskList.map((task) => (
+            {taskList.tasks &&
+              taskList.tasks.length > 0 &&
+              taskList.tasks.map((task) => (
                 <Task
                   key={task.id}
                   data={task}
@@ -100,12 +103,20 @@ export const TodoPage = () => {
             {isModalOpen && (
               <TaskInfo
                 data={selectedTask as ITask}
-                config={{ setSelectedTask }}
+                config={{
+                  updateTask: taskList.updateTask,
+                  removeTask: taskList.removeTask,
+                  selectedTask,
+                }}
+                onClose={() => {
+                  setSelectedTask(null);
+                  setModalOpen(false);
+                }}
               />
             )}
           </section>
         </div>
       </div>
-    </div>
+    </BaseTemplate>
   );
 };
