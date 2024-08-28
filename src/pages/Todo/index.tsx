@@ -2,6 +2,7 @@ import { MouseEvent, useState } from "react";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
+import { Navbar } from "../../components/Navbar";
 import { Task } from "../../components/Task";
 import { TaskInfo } from "../../patterns/TaskInfo";
 import { ITask } from "../../types/ITask";
@@ -39,6 +40,11 @@ export const TodoPage = () => {
   };
 
   const addTaskToList = (name: string) => {
+
+    if (!name) {
+      return;
+    }
+
     const newTasks = {
       id: Math.random().toString(36).substr(2, 9),
       name,
@@ -56,18 +62,8 @@ export const TodoPage = () => {
   };
 
   return (
-    <div className="bg-slate-900 h-screen text-slate-50 py-12 px-60 flex flex-col items-start gap-12">
-      <nav className="text-slate-500 flex gap-4 items-center justify-center">
-        <a href="/" className="hover:text-sky-500">
-          Home
-        </a>
-        <a href="/about" className="hover:text-sky-500">
-          About
-        </a>
-        <a href="/todo" className="p-2 bg-sky-600 text-slate-100 rounded">
-          Todo App
-        </a>
-      </nav>
+    <div className="bg-slate-900 min-h-screen h-full text-slate-50 py-12 px-60 flex flex-col items-start gap-12">
+      <Navbar />
       <div className="flex justify-start items-start h-full w-full gap-12">
         <div className="flex flex-col justify-start items-start h-auto w-full gap-6 max-w-lg">
           <Header />
@@ -79,6 +75,7 @@ export const TodoPage = () => {
             />
             <Button
               label="Add to list"
+              variant="default"
               onClick={() => addTaskToList(taskName)}
             />
           </div>
