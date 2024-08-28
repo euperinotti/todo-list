@@ -45,7 +45,7 @@ export const TodoPage = () => {
   };
 
   const addTaskToList = (name: string) => {
-    if (!name) {
+    if (!name || name.trim().length === 0) {
       return;
     }
 
