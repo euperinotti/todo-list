@@ -6,6 +6,8 @@ export interface TaskInfoProps {
   config: {
     setSelectedTask: Dispatch<SetStateAction<ITask | null | undefined>>;
     selectedTask: any;
+    updateTask: (task: ITask) => void;
+    removeTask: (taskId: string) => void;
   };
   onClose: () => void;
 }

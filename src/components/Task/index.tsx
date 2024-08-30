@@ -12,7 +12,7 @@ export const Task = ({ data, ...rest }: TaskProps) => {
         <div className="w-full flex items-center justify-start gap-2 text-slate-500 text-sm">
           <span>
             {data.dateAdded.toLocaleDateString("pt-BR")}{" "}
-            {data.dueDate ? " - " + data.dueDate.toLocaleDateString("pt-BR") : ''}
+            {data.dueDate ? " - " + (data.dueDate as Date).toLocaleDateString("pt-BR") : ''}
           </span>
           {data.notes && (
             <>

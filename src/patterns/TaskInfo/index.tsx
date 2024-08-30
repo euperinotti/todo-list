@@ -23,7 +23,7 @@ export const TaskInfo = ({ config, onClose }: TaskInfoProps) => {
         {newTaskInfo.dateAdded.toLocaleDateString("pt-BR")} -{" "}
         <input
           type="datetime-local"
-          value={newTaskInfo?.dueDate ? newTaskInfo?.dueDate?.toISOString().slice(0, 16) : ''}
+          value={newTaskInfo?.dueDate ? (newTaskInfo?.dueDate as Date)?.toISOString().slice(0, 16) : ''}
           onChange={(e) => {
             const date = new Date(e.target.value);
             setNewTaskInfo({ ...newTaskInfo, dueDate: date });

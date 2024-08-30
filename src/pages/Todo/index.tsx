@@ -9,17 +9,6 @@ import { BaseTemplate } from "../../template/Base";
 import { ITask } from "../../types/ITask";
 import { TaskStatus } from "../../types/TaskStatus";
 
-const exampleTask: ITask = {
-  id: "1",
-  name: "Task",
-  dateAdded: new Date(),
-  dateModified: "",
-  status: TaskStatus.ACTIVE,
-  dateCompleted: "",
-  dueDate: "",
-  notes: "ajsdasdaskdl",
-};
-
 export const TodoPage = () => {
   const taskList = useTask();
   const [selectedTask, setSelectedTask] = useState<ITask | null>();
@@ -27,7 +16,7 @@ export const TodoPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenTaskInfo = (e: MouseEvent<HTMLDivElement>, task: ITask) => {
-    const checkTaskId = e.target.getAttribute("id");
+    const checkTaskId = (e.target as HTMLDivElement).getAttribute("id");
 
     if (checkTaskId == "customStyle") {
       setTimeout(() => {
@@ -107,6 +96,7 @@ export const TodoPage = () => {
               <TaskInfo
                 data={selectedTask as ITask}
                 config={{
+                  setSelectedTask,
                   updateTask: taskList.updateTask,
                   removeTask: taskList.removeTask,
                   selectedTask,
